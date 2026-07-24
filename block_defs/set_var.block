@@ -4,7 +4,7 @@
  _设置键
  _设置值
 
-输出: []
+输出:
 
 执行:
  python://blocks.set_var_block:_do_set
