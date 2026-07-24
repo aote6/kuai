@@ -16,19 +16,13 @@ def run_flow_file(filepath: str, verbose=True):
         print(f"=== 任务: {parsed['task']} ===")
 
     engine = Engine(verbose=verbose)
-    current_state = State()
 
+    current_state = State()
+    blocks_only = []
     for block, injections in executable:
-        # 注入参数
         if injections:
             current_state = current_state.with_updates(**injections)
-        
-        # 执行
-        current_state = engine.run_sequence([block], current_state)
-        
-        # 清理注入的参数（下划线开头的字段）
-        if injections:
-            clean = {k: v for k, v in current_state.items() if k not in injections}
-            current_state = State(clean)
+        blocks_only.append(block)
 
-    return current_state
+    final_state = engine.run_sequence(blocks_only, current_state)
+    return final_state

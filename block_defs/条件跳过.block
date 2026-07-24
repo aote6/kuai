@@ -1,0 +1,12 @@
+块 条件跳过
+
+输入:
+
+输出:
+
+参数:
+ 字段 -> _检查字段
+ 期望值 -> _期望值
+
+执行:
+ python://blocks.skip_if_block:_do_skip_if
