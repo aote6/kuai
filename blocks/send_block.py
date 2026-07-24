@@ -1,6 +1,5 @@
 import os
 import shutil
-from core.block import Block
 from core.state import State
 
 
@@ -12,12 +11,5 @@ def _do_send(state: State) -> State:
     dest_path = os.path.join(dest_dir, os.path.basename(src))
     shutil.copy2(src, dest_path)
 
-    return state.with_updates(当前对象=dest_path, 对象类型="已发送文件", 完成=True)
-
-
-SendBlock = Block(
-    name="发送",
-    input_schema=["当前对象", "对象类型"],
-    output_schema=["当前对象", "完成"],
-    execute_func=_do_send,
-)
+    # 最小修改原则：发送是复制到外部目标，不改变对象类型
+    return state.with_updates(当前对象=dest_path, 完成=True)
