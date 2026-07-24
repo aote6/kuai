@@ -1,0 +1,15 @@
+块 删除
+
+输入:
+ 当前对象
+ 对象类型
+
+输出:
+ 已删除=True
+ 删除数量
+
+属性:
+ 幂等: false
+
+执行:
+ python://blocks.delete_block:_do_delete
