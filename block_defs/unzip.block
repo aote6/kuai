@@ -6,7 +6,12 @@
 
 输出:
  当前对象
- 对象类型=文件副本
+ 对象类型=文件集合
+ 解压目录
+ 解压文件数
+
+属性:
+ 幂等: false
 
 执行:
  python://blocks.unzip_block:_do_unzip

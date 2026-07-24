@@ -263,3 +263,36 @@ if __name__ == "__main__":
         state = BLOCK_REGISTRY["重命名"].execute(state)
         self.assertEqual(state["对象类型"], "压缩包",
                          "重命名不应改变压缩包的对象类型")
+
+    # ═══════════════════════════════════════
+    # 流程 9: 完整闭环：筛选 → 重命名 → 压缩 → 移动 → 解压
+    # ═══════════════════════════════════════
+
+    def test_full_roundtrip(self):
+        """文件集合 → 压缩包 → 移动 → 解压 → 文件集合"""
+        self._make_file("a.txt", "aaa")
+        self._make_file("b.txt", "bbb")
+        self._make_file("c.log", "ccc")
+
+        final = self._run_flow([
+            ("进入", {"_待进入路径": self.temp_dir}),
+            ("列表", {}),
+            ("筛选", {"_扩展名": "txt"}),
+            ("批量重命名", {"_前缀": "bk_", "_扩展名": "txt"}),
+            ("压缩", {}),
+            ("移动", {"目标目录": self.archive_dir}),
+            ("解压", {}),
+        ])
+
+        # 最终状态
+        self.assertEqual(final["对象类型"], "文件集合")
+        self.assertIsInstance(final["当前对象"], list)
+        self.assertEqual(final["解压文件数"], 2)
+
+        # 解压出的文件存在
+        for path in final["当前对象"]:
+            self.assertTrue(os.path.exists(path),
+                            f"闭环终点文件应存在: {path}")
+            basename = os.path.basename(path)
+            self.assertTrue(basename.startswith("bk_"),
+                            f"解压出的文件名应保留前缀: {basename}")
