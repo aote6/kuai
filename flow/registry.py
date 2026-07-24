@@ -1,3 +1,4 @@
+import os
 from core.state import State
 from core.block_loader import load_all_blocks
 
@@ -6,6 +7,12 @@ BLOCK_DEFS_DIR = "block_defs"
 
 def _enter_dir(state: State) -> State:
     path = state["_待进入路径"]
+    
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"进入: 路径不存在: {path}")
+    if not os.path.isdir(path):
+        raise NotADirectoryError(f"进入: 路径不是目录: {path}")
+    
     new_state = State({k: v for k, v in state.items() if k != "_待进入路径"})
     return new_state.with_updates(当前路径=path)
 
@@ -40,7 +47,6 @@ def build_executable_blocks(parsed_flow: dict):
             if external_name in named_args:
                 injections[internal_key] = named_args[external_name]
 
-        # 检查缺失参数：先收集所有缺失的，一次性报错
         if inject_keys:
             provided = set(named_args.keys())
             if arg is not None:
@@ -54,7 +60,6 @@ def build_executable_blocks(parsed_flow: dict):
                     f"第{line}行: 块 '{name}' 缺少参数 {missing}"
                 )
 
-        # 检查未知参数
         if inject_keys:
             known_external = set(k[0] for k in inject_keys)
             for k in named_args:
