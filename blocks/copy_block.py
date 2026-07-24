@@ -17,9 +17,8 @@ def _do_copy(state: State) -> State:
 
     if os.path.isdir(target):
         shutil.copytree(target, dest)
-        obj_type = "目录"
     else:
         shutil.copy2(target, dest)
-        obj_type = "文件"
 
-    return state.with_updates(当前对象=dest, 对象类型=obj_type)
+    # 最小修改原则：复制只变更位置，不触碰语义字段
+    return state.with_updates(当前对象=dest)

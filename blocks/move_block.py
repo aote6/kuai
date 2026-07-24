@@ -16,5 +16,5 @@ def _do_move(state: State) -> State:
     dest = os.path.join(dest_dir, name)
     shutil.move(target, dest)
 
-    obj_type = "目录" if os.path.isdir(dest) else "文件"
-    return state.with_updates(当前对象=dest, 对象类型=obj_type)
+    # 最小修改原则：移动只变更位置，不触碰语义字段
+    return state.with_updates(当前对象=dest)
