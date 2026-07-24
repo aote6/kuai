@@ -1,35 +1,58 @@
-# Kuai 项目状态
+# Kuai Project Status
 
-## 当前阶段：Phase 2.0 完成，Phase 2.1 进行中
+## Phase 2.4
 
-### Phase 2.0 成果
-- 多参数注入（`key=value` 语法）
-- 参数校验前置（缺失参数/未知参数检查）
-- 自动参数清理（`_` 前缀字段执行后移除）
-- State 与文件系统状态一致性修复（`批量重命名` 正确更新 `筛选结果`/`当前对象`）
+### Blocks (11 total)
 
-### Phase 2.1：幂等性
+| Block | Type | Idempotent | Description |
+|-------|------|------------|-------------|
+| enter | nav | - | Change working directory |
+| list | read | - | List directory contents |
+| filter | read | - | Filter by extension |
+| pick | nav | - | Select single file/dir |
+| copy | write | false | Copy to target dir |
+| move | write | false | Move to target dir |
+| rename | write | false | Rename single object |
+| batch_rename | write | false | Batch prefix, skips existing |
+| zip | transform | false | File/collection -> archive |
+| unzip | transform | false | Archive -> file collection |
+| delete | write | false | Delete file/collection |
 
-**发现**：2024-07-24 测试证实，同一 flow 重复执行会静默产生错误结果（如 `backup_backup_a.txt`），系统报告"成功"但语义错误。
+### Object Type Flow
 
-**已修复**：
-- [x] `批量重命名`：前缀已存在时跳过，不再累加
+file/dir -> zip -> archive -> unzip -> file_collection
+file_collection -> zip -> archive
+archive -> move/copy/rename (type preserved)
 
-**待验证**（每个修改性块需逐一检查重复执行行为）：
+### Test System (78 tests)
 
-| 块 | 状态 | 问题描述 |
-|---|---|---|
-| `批量重命名` | ✅ 已修复 | 前缀已存在时跳过 |
-| `压缩` | ⚠️ 未测试 | 重复执行可能覆盖同名 zip |
-| `移动` | ⚠️ 未测试 | 目标已存在时静默覆盖 |
-| `替换` | ⚠️ 未测试 | 文本已修改后可能匹配不到 |
-| `复制` | ⚠️ 未测试 | 目标已存在时的行为 |
-| `发送` | ⚠️ 未测试 | 重复发送行为 |
-| `重命名` | ⚠️ 未测试 | 目标已存在时的行为 |
+L1 Unit: 57 tests (contract, empty, normal, idempotent, pollution, fs)
+L2 Integration: 10 tests (object chain, roundtrip, double exec)
+L3 Invariants: 11 tests (type preservation, absolute paths, read-only)
 
-**设计原则**：每个"修改性"块在合并前应验证重复执行行为。当前修复为最低成本方案（逐块检测），全局幂等性框架留待后续设计。
+### Design Principles
 
-### 已知设计限制
-- 大部分块目前不是幂等的，重复执行同一 flow 可能产生非预期结果
-- "运行成功"信号不可靠（程序可在语义错误情况下报告成功）
-- 无任务执行记录/usage.db（Phase 2 文档提及，尚未实现）
+See docs/DESIGN_PRINCIPLES.md
+
+### Resolved Issues
+
+1. State/FS desync after batch_rename
+2. Object type overwritten by move/copy
+3. Idempotent batch_rename and delete
+4. Filter results polluted by batch_rename
+5. Parameter field leakage
+
+### Known Limitations
+
+- Most write blocks are non-idempotent
+- No execution history (usage.db)
+- No conditionals or loops
+- No rollback or error recovery
+- No parallel execution
+
+### Next Steps
+
+1. Standardize tests for replace/read blocks
+2. Add send block
+3. Add conditionals
+4. Implement usage.db
