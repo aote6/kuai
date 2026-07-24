@@ -1,0 +1,11 @@
+块 获取时间
+
+输入:
+
+输出:
+ 当前时间
+ 当前日期
+ 时间戳
+
+执行:
+ python://blocks.datetime_block:_do_now

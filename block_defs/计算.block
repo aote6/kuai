@@ -1,0 +1,10 @@
+块 计算
+
+输入:
+ 表达式
+
+输出:
+ 计算结果
+
+执行:
+ python://blocks.math_block:_do_calc

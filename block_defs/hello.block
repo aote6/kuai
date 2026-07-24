@@ -1,0 +1,10 @@
+块 打招呼
+
+输入:
+ 名字
+
+输出:
+ 问候语
+
+执行:
+ python://blocks.hello_block:_do_hello

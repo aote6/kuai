@@ -1,0 +1,11 @@
+块 执行命令
+
+输入:
+ 命令
+
+输出:
+ 命令输出
+ 退出码
+
+执行:
+ python://blocks.shell_block:_do_shell

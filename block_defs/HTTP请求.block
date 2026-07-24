@@ -1,0 +1,11 @@
+块 HTTP请求
+
+输入:
+ URL
+
+输出:
+ 响应内容
+ 状态码
+
+执行:
+ python://blocks.http_block:_do_http_get
