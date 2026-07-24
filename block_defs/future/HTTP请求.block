@@ -1,0 +1,16 @@
+块 HTTP请求
+
+输入:
+ URL
+ 方法
+ 请求体
+
+输出:
+ 响应
+ 状态码
+
+说明: 发送HTTP请求
+分类: 网络
+
+执行:
+ python://blocks.stub:_do_stub

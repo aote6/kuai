@@ -1,0 +1,13 @@
+块 Markdown转HTML
+
+输入:
+ Markdown文本
+
+输出:
+ HTML
+
+说明: Markdown转HTML
+分类: 文本
+
+执行:
+ python://blocks.stub:_do_stub

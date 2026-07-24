@@ -1,0 +1,13 @@
+块 WebSocket连接
+
+输入:
+ URL
+
+输出:
+ 连接ID
+
+说明: 建立WebSocket连接
+分类: 网络
+
+执行:
+ python://blocks.stub:_do_stub

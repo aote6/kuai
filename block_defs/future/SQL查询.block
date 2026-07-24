@@ -1,0 +1,14 @@
+块 SQL查询
+
+输入:
+ SQL语句
+ 数据库路径
+
+输出:
+ 查询结果
+
+说明: 执行SQL查询
+分类: 数据库
+
+执行:
+ python://blocks.stub:_do_stub

@@ -1,0 +1,13 @@
+块 JSON解析
+
+输入:
+ JSON字符串
+
+输出:
+ 解析结果
+
+说明: 解析JSON字符串
+分类: 数据
+
+执行:
+ python://blocks.stub:_do_stub

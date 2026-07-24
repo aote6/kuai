@@ -1,0 +1,13 @@
+块 提取URL
+
+输入:
+ 文本
+
+输出:
+ URL列表
+
+说明: 从文本提取URL链接
+分类: 文本
+
+执行:
+ python://blocks.stub:_do_stub

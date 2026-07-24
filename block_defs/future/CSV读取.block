@@ -1,0 +1,13 @@
+块 CSV读取
+
+输入:
+ 文件路径
+
+输出:
+ 数据表
+
+说明: 读取CSV文件
+分类: 数据
+
+执行:
+ python://blocks.stub:_do_stub
