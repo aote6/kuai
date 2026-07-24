@@ -1,58 +1,60 @@
-# Kuai Project Status
+# Kuai 项目状态
 
-## Phase 2.4
+唯一真相来源。每次重大决定后更新。
 
-### Blocks (11 total)
+## 当前阶段
 
-| Block | Type | Idempotent | Description |
-|-------|------|------------|-------------|
-| enter | nav | - | Change working directory |
-| list | read | - | List directory contents |
-| filter | read | - | Filter by extension |
-| pick | nav | - | Select single file/dir |
-| copy | write | false | Copy to target dir |
-| move | write | false | Move to target dir |
-| rename | write | false | Rename single object |
-| batch_rename | write | false | Batch prefix, skips existing |
-| zip | transform | false | File/collection -> archive |
-| unzip | transform | false | Archive -> file collection |
-| delete | write | false | Delete file/collection |
+Phase 2.5 — Block 系统契约基本稳定。
+80 tests, 0 failures。正在收尾"文件集合"类型的全块覆盖。
 
-### Object Type Flow
+## 已确立的设计原则
 
-file/dir -> zip -> archive -> unzip -> file_collection
-file_collection -> zip -> archive
-archive -> move/copy/rename (type preserved)
+1. 最小修改原则：块只碰它必须碰的字段，不重新推断透传字段。
+   反例：move 曾根据 os.path.isdir() 重写对象类型。
+2. 幂等性：块重复执行不应产生累积错误。
+   反例：batch_rename 曾无条件加前缀导致 backup_backup_x.txt。
+3. 契约字段两类：output_fields（永久保留）vs param_inject_keys（_前缀，执行后清理）。
+4. 重复代码不等于重复概念，只有真正同一种行为才抽象。
+   反例：压缩（多变一）和复制/移动（多变多）的 isinstance(list) 分支不是同一种行为。
+5. State 必须反映真实世界：块改了外部世界就必须同步更新 State。
+6. 字段所有权：每个 State 字段有且仅有一个所有者块，其他块可读不可写。
 
-### Test System (78 tests)
+## 系统不变量（新块必须逐条自查）
 
-L1 Unit: 57 tests (contract, empty, normal, idempotent, pollution, fs)
-L2 Integration: 10 tests (object chain, roundtrip, double exec)
-L3 Invariants: 11 tests (type preservation, absolute paths, read-only)
+1. 当前对象必须指向真实存在的路径
+2. 当前对象必须是绝对路径
+3. 移动不改变对象类型
+4. 复制不改变对象类型
+5. 重命名不改变对象类型
+6. 压缩必须产出 对象类型=压缩包
+7. 解压必须产出 对象类型=文件集合
+8. 只读块（列表/筛选）不修改文件系统
+9. 所有块不污染无关 State 字段（不覆盖别人的输出）
 
-### Design Principles
+## 文件集合支持现状
 
-See docs/DESIGN_PRINCIPLES.md
+| 块 | 支持文件集合 | 备注 |
+|---|---|---|
+| 压缩 | 是 | 多变一 |
+| 解压 | 产出文件集合 | 一多变 |
+| 合并为对象 | 产出文件集合 | 桥接块 |
+| 批量重命名 | 产出文件集合 | 幂等处理 |
+| 复制 | 是 | 多变多，逐个处理 |
+| 移动 | 是 | 多变多，逐个处理 |
+| 删除 | 是 | 支持列表 |
+| 重命名 | 否 | 语义未定：重命名一个列表意味着什么？ |
 
-### Resolved Issues
+## 已知问题
 
-1. State/FS desync after batch_rename
-2. Object type overwritten by move/copy
-3. Idempotent batch_rename and delete
-4. Filter results polluted by batch_rename
-5. Parameter field leakage
+- 重命名块不支持文件集合（语义待定）
+- 无任务执行记录（usage.db）
+- 无条件/循环控制结构
+- 无错误恢复/回滚机制
 
-### Known Limitations
+## 下一步（当前唯一优先级）
 
-- Most write blocks are non-idempotent
-- No execution history (usage.db)
-- No conditionals or loops
-- No rollback or error recovery
-- No parallel execution
+1. 先把"复制/移动/删除/重命名"对"文件集合"的支持写成正式回归测试
+2. 不再新增块，直到现有块的契约覆盖完整
+3. 决定"重命名"是否应该支持文件集合（语义问题，不是技术问题）
 
-### Next Steps
-
-1. Standardize tests for replace/read blocks
-2. Add send block
-3. Add conditionals
-4. Implement usage.db
+*最后更新：Phase 2.5 — 80 tests passed*
