@@ -5,10 +5,15 @@
 
 输出:
  重命名数量
+ 当前对象
+ 对象类型=文件集合
 
 参数:
  前缀 -> _前缀
  扩展名 -> _扩展名
+
+属性:
+ 幂等: false
 
 执行:
  python://blocks.batch_rename_block:_do_batch_rename

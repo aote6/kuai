@@ -4,7 +4,7 @@ from core.state import State
 
 def _do_filter(state: State) -> State:
     target_dir = state["当前路径"]
-    ext = state["扩展名"]
+    ext = state["_扩展名"]
     matched = []
 
     for fname in sorted(os.listdir(target_dir)):

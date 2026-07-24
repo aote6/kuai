@@ -1,0 +1,11 @@
+块 合并为对象
+
+输入:
+ 筛选结果
+
+输出:
+ 当前对象
+ 对象类型=文件集合
+
+执行:
+ python://blocks.merge_to_object_block:_do_merge

@@ -1,0 +1,10 @@
+任务 自动归档测试
+
+进入 /data/data/com.termux/files/home/test_project
+列表
+筛选 扩展名=txt
+批量重命名 前缀=backup_ 扩展名=txt
+压缩
+移动 目标路径=/data/data/com.termux/files/home/test_project/archive
+
+结束

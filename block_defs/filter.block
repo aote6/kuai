@@ -2,11 +2,13 @@
 
 输入:
  当前路径
- 扩展名
 
 输出:
  筛选结果
  筛选数量
+
+参数:
+ 扩展名 -> _扩展名
 
 执行:
  python://blocks.filter_block:_do_filter

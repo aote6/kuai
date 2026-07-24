@@ -1,129 +1,97 @@
-import re
 import importlib
+import os
 from core.block import Block
 
 
-class BlockDefParseError(Exception):
-    pass
-
-
-class BlockDefLoadError(Exception):
-    pass
-
-
-def _parse_block_def_text(text: str, source_path: str) -> dict:
-    lines = [line.rstrip() for line in text.splitlines()]
-    lines = [line for line in lines if line.strip()]
-
-    if not lines:
-        raise BlockDefParseError(f"{source_path}: 空的块定义文件")
-
-    m = re.match(r"^块\s+(\S.*)$", lines[0].strip())
-    if not m:
-        raise BlockDefParseError(f"{source_path}: 第1行必须是 '块 <名称>'")
-    name = m.group(1).strip()
-
-    section = None
-    input_fields = []
-    output_fields = []
-    output_constants = {}
-    param_inject_keys = []  # 改为列表: [(外部名, 内部State字段), ...]
-    exec_line = None
-
-    for i, raw in enumerate(lines[1:], start=2):
-        stripped = raw.strip()
-        if stripped in ("输入:", "输出:", "参数:", "执行:"):
-            section = stripped[:-1]
-            continue
-        if section is None:
-            raise BlockDefParseError(
-                f"{source_path}:{i}: 内容出现在任何 输入:/输出:/参数:/执行: 段落之前"
-            )
-
-        if section == "输入":
-            input_fields.append(stripped)
-        elif section == "输出":
-            if "=" in stripped:
-                key, val = stripped.split("=", 1)
-                output_constants[key.strip()] = val.strip()
-            else:
-                output_fields.append(stripped)
-        elif section == "参数":
-            # 格式: <外部名> -> <内部State字段名>
-            m3 = re.match(r"^(\S+)\s*->\s*(\S+)$", stripped)
-            if not m3:
-                raise BlockDefParseError(
-                    f"{source_path}:{i}: 参数行格式错误，应为 '<外部名> -> <内部State字段>'，实际: '{stripped}'"
-                )
-            param_inject_keys.append((m3.group(1), m3.group(2)))
-        elif section == "执行":
-            exec_line = stripped
-
-    if exec_line is None:
-        raise BlockDefParseError(f"{source_path}: 缺少 '执行:' 段落")
-
-    m2 = re.match(r"^python://([\w\.]+):(\w+)$", exec_line)
-    if not m2:
-        raise BlockDefParseError(
-            f"{source_path}: 执行体格式错误，应为 'python://模块路径:函数名'，实际: '{exec_line}'"
-        )
-    exec_module, exec_func = m2.group(1), m2.group(2)
-
-    return {
-        "name": name,
-        "input_fields": input_fields,
-        "output_fields": output_fields,
-        "output_constants": output_constants,
-        "param_inject_keys": param_inject_keys,
-        "exec_module": exec_module,
-        "exec_func": exec_func,
+def _parse_block_def(text: str) -> dict:
+    """解析 .block 文件，返回块定义字典"""
+    lines = text.strip().split("\n")
+    result = {
+        "name": None,
+        "input_schema": [],
+        "output_schema": [],
+        "output_constants": {},
+        "params": [],
+        "properties": {},
+        "execute": None,
     }
 
+    section = None
+    for line in lines:
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
 
-def load_block_from_file(filepath: str) -> Block:
-    with open(filepath, "r", encoding="utf-8") as f:
-        text = f.read()
+        if line.startswith("块 "):
+            result["name"] = line[2:].strip()
+            section = None
+        elif line == "输入:":
+            section = "input"
+        elif line == "输出:":
+            section = "output"
+        elif line == "参数:":
+            section = "params"
+        elif line == "属性:":
+            section = "properties"
+        elif line == "执行:":
+            section = "execute"
+        elif section == "input":
+            result["input_schema"].append(line)
+        elif section == "output":
+            if "=" in line:
+                key, val = line.split("=", 1)
+                result["output_constants"][key.strip()] = val.strip()
+            else:
+                result["output_schema"].append(line)
+        elif section == "params":
+            if "->" in line:
+                ext, _int = line.split("->", 1)
+                result["params"].append((ext.strip(), _int.strip()))
+        elif section == "properties":
+            if ":" in line:
+                key, val = line.split(":", 1)
+                result["properties"][key.strip()] = val.strip()
+        elif section == "execute":
+            result["execute"] = line.strip()
 
-    spec = _parse_block_def_text(text, filepath)
+    return result
 
-    try:
-        module = importlib.import_module(spec["exec_module"])
-    except ImportError as e:
-        raise BlockDefLoadError(
-            f"{filepath}: 无法加载模块 '{spec['exec_module']}': {e}"
-        )
 
-    if not hasattr(module, spec["exec_func"]):
-        raise BlockDefLoadError(
-            f"{filepath}: 模块 '{spec['exec_module']}' 中找不到函数 '{spec['exec_func']}'"
-        )
-
-    execute_func = getattr(module, spec["exec_func"])
-    output_schema = spec["output_fields"] + list(spec["output_constants"].keys())
-
-    block = Block(
-        name=spec["name"],
-        input_schema=spec["input_fields"],
-        output_schema=output_schema,
-        execute_func=execute_func,
-    )
-    block.output_constants = spec["output_constants"]
-    block.param_inject_keys = spec["param_inject_keys"]  # 改为列表
-    return block
+def _load_execute_func(execute_str: str):
+    """从 python://module:func 字符串加载执行函数"""
+    if not execute_str.startswith("python://"):
+        raise ValueError(f"不支持的执行协议: {execute_str}")
+    path = execute_str[len("python://"):]
+    module_name, func_name = path.rsplit(":", 1)
+    module = importlib.import_module(module_name)
+    return getattr(module, func_name)
 
 
 def load_all_blocks(block_defs_dir: str) -> dict:
-    import os
-
+    """加载所有 .block 定义文件，返回 {块名: Block} 字典"""
     registry = {}
     for fname in os.listdir(block_defs_dir):
         if not fname.endswith(".block"):
             continue
         filepath = os.path.join(block_defs_dir, fname)
-        block = load_block_from_file(filepath)
-        if block.name in registry:
-            raise BlockDefLoadError(
-                f"{filepath}: 块名 '{block.name}' 与已加载的块重复"
-            )
-        registry[block.name] = block
+        with open(filepath, "r", encoding="utf-8") as f:
+            text = f.read()
+
+        parsed = _parse_block_def(text)
+        execute_func = _load_execute_func(parsed["execute"])
+
+        # 合并输出字段与输出常量字段作为完整 output_schema
+        full_output_schema = parsed["output_schema"] + list(parsed["output_constants"].keys())
+
+        block = Block(
+            name=parsed["name"],
+            input_schema=parsed["input_schema"],
+            output_schema=full_output_schema,
+            execute_func=execute_func,
+            param_inject_keys=parsed["params"],
+            properties=parsed["properties"],
+        )
+        block.output_constants = parsed["output_constants"]
+        registry[parsed["name"]] = block
+
     return registry

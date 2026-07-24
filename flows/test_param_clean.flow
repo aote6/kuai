@@ -1,0 +1,8 @@
+任务 参数清理测试
+
+进入 /data/data/com.termux/files/home/test_project
+选取 文件名=备份_a.txt
+替换 查找=替换后的行 替换=最终行
+读取
+
+结束

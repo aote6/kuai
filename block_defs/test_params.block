@@ -1,0 +1,14 @@
+块 参数测试
+
+输入:
+
+输出:
+ 参数结果
+
+参数:
+ 参数A -> _a
+ 参数B -> _b
+ 参数C -> _c
+
+执行:
+ python://blocks.test_params_block:_do_test

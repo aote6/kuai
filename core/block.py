@@ -2,11 +2,27 @@ from core.state import State, StateMismatchError
 
 
 class Block:
-    def __init__(self, name, input_schema, output_schema, execute_func):
+    def __init__(
+        self,
+        name,
+        input_schema,
+        output_schema,
+        execute_func,
+        param_inject_keys=None,
+        properties=None,
+    ):
         self.name = name
         self.input_schema = input_schema
         self.output_schema = output_schema
         self._execute = execute_func
+        self.param_inject_keys = param_inject_keys or []
+        self.properties = properties or {}
+
+    @property
+    def is_idempotent(self) -> bool:
+        """从 properties 读取幂等性，默认为 False（保守策略）"""
+        val = self.properties.get("幂等", "false").lower()
+        return val in ("true", "1", "yes", "是")
 
     def _check_input(self, input_state: State):
         missing = [k for k in self.input_schema if k not in input_state]
