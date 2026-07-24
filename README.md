@@ -1,5 +1,7 @@
 Kuai
 
+注意：当前24个块是测试用例，非功能上限。框架支持注册任意能力的块，
+包括但不限于：系统操作、网络请求、AI调用、数据库、媒体处理等。
 State-as-Single-Source-of-Truth DSL engine for AI-native file management.
 
 109 tests, 0 failures. 24 blocks.
