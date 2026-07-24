@@ -1,0 +1,7 @@
+任务 缺少参数测试
+
+进入 /data/data/com.termux/files/home/test_project
+选取 备份_a.txt
+替换 查找=abc
+
+结束

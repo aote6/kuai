@@ -1,0 +1,9 @@
+任务 替换文本内容
+
+进入 /data/data/com.termux/files/home/test_project
+选取 备份_a.txt
+设置查找 第一行
+设置替换 替换后的行
+替换
+
+结束

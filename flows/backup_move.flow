@@ -1,0 +1,8 @@
+任务 备份到指定目录
+
+进入 /data/data/com.termux/files/home/test_project
+复制
+压缩
+移动 /data/data/com.termux/files/home/存档
+
+结束

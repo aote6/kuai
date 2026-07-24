@@ -1,0 +1,14 @@
+块 批量重命名
+
+输入:
+ 当前路径
+
+输出:
+ 重命名数量
+
+参数:
+ 前缀 -> _前缀
+ 扩展名 -> _扩展名
+
+执行:
+ python://blocks.batch_rename_block:_do_batch_rename

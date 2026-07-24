@@ -1,0 +1,14 @@
+块 替换
+
+输入:
+ 当前对象
+
+输出:
+ 文件内容
+
+参数:
+ 查找 -> _查找
+ 替换 -> _替换
+
+执行:
+ python://blocks.replace_block:_do_replace

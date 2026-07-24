@@ -1,0 +1,10 @@
+块 分类
+
+输入:
+ 当前路径
+
+输出:
+ 分类数量
+
+执行:
+ python://blocks.sort_block:_do_sort

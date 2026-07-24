@@ -1,0 +1,13 @@
+块 重命名
+
+输入:
+ 当前对象
+
+输出:
+ 当前对象
+
+参数:
+ 新名称 -> 新名称
+
+执行:
+ python://blocks.rename_block:_do_rename

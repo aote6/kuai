@@ -1,0 +1,11 @@
+块 生成报告
+
+输入:
+ 当前路径
+
+输出:
+ 报告路径
+ 报告内容
+
+执行:
+ python://blocks.report_block:_do_report

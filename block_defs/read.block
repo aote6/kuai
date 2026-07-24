@@ -1,0 +1,10 @@
+块 读取
+
+输入:
+ 当前对象
+
+输出:
+ 文件内容
+
+执行:
+ python://blocks.read_block:_do_read

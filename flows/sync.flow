@@ -1,0 +1,6 @@
+任务 同步目录
+
+进入 /data/data/com.termux/files/home/test_project
+同步 /data/data/com.termux/files/home/同步目标
+
+结束

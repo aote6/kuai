@@ -1,0 +1,11 @@
+块 复制
+
+输入:
+ 当前路径
+
+输出:
+ 当前对象
+ 对象类型=文件副本
+
+执行:
+ python://blocks.copy_block:_do_copy

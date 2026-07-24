@@ -1,0 +1,10 @@
+块 清理
+
+输入:
+ 当前路径
+
+输出:
+ 清理数量
+
+执行:
+ python://blocks.clean_block:_do_clean

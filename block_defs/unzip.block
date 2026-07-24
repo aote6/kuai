@@ -1,0 +1,12 @@
+块 解压
+
+输入:
+ 当前对象
+ 对象类型
+
+输出:
+ 当前对象
+ 对象类型=文件副本
+
+执行:
+ python://blocks.unzip_block:_do_unzip

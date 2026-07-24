@@ -1,0 +1,11 @@
+块 列表
+
+输入:
+ 当前路径
+
+输出:
+ 文件列表
+ 文件数量
+
+执行:
+ python://blocks.list_block:_do_list
