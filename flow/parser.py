@@ -26,8 +26,22 @@ def parse_flow(text: str) -> dict:
     if not body_lines:
         raise FlowParseError(f"任务 '{task_name}' 没有任何块")
 
+    variables = {}
+    block_lines = []
+    for line in body_lines:
+        m = re.match(r"^变量\s+(\S+)=(\S.*)$", line)
+        if m:
+            var_name = m.group(1)
+            var_value = m.group(2)
+            if var_name in variables:
+                raise FlowParseError(f"变量 '{var_name}' 重复声明")
+            variables[var_name] = var_value
+        else:
+            block_lines.append(line)
+
     blocks = []
-    for line_num, line in enumerate(body_lines, start=2):
+    for line_num_offset, line in enumerate(block_lines):
+        line_num = line_num_offset + 2  # 保持原始行号
         parts = line.split(None, 1)
         name = parts[0]
         args_raw = parts[1].strip() if len(parts) > 1 else ""
@@ -43,6 +57,13 @@ def parse_flow(text: str) -> dict:
                 else:
                     positional_arg = token
 
+        # 变量替换：位置参数和具名参数的值如果在变量表中，替换为变量值
+        if positional_arg and positional_arg in variables:
+            positional_arg = variables[positional_arg]
+        for k, v in named_args.items():
+            if v in variables:
+                named_args[k] = variables[v]
+
         blocks.append({
             "name": name,
             "arg": positional_arg,
@@ -50,4 +71,4 @@ def parse_flow(text: str) -> dict:
             "line": line_num,
         })
 
-    return {"task": task_name, "blocks": blocks}
+    return {"task": task_name, "variables": variables, "blocks": blocks}
