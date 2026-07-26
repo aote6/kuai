@@ -1,8 +1,6 @@
 任务 批量重命名txt文件
 
-进入 /data/data/com.termux/files/home/test_project
-设置前缀 备份_
-设置扩展名 txt
-批量重命名
+进入 目标路径=/data/data/com.termux/files/home/test_project
+批量重命名 前缀=备份_ 扩展名=txt
 
 结束

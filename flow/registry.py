@@ -2,17 +2,18 @@ import os
 from core.state import State
 from core.block_loader import load_all_blocks
 
-BLOCK_DEFS_DIR = "block_defs"
+KUAI_HOME = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BLOCK_DEFS_DIR = os.path.join(KUAI_HOME, "block_defs")
 
 
 def _enter_dir(state: State) -> State:
     path = state["_待进入路径"]
-    
+
     if not os.path.exists(path):
         raise FileNotFoundError(f"进入: 路径不存在: {path}")
     if not os.path.isdir(path):
         raise NotADirectoryError(f"进入: 路径不是目录: {path}")
-    
+
     new_state = State({k: v for k, v in state.items() if k != "_待进入路径"})
     return new_state.with_updates(当前路径=path)
 

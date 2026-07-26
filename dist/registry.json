@@ -1,0 +1,439 @@
+{
+  "archive": [
+    {
+      "name": "archive",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "archive",
+          "description": "执行 archive 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "backup": [
+    {
+      "name": "backup",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "backup",
+          "description": "执行 backup 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "backup_move": [
+    {
+      "name": "backup_move",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "backup_move",
+          "description": "执行 backup_move 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "bad_name": [
+    {
+      "name": "bad_name",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "bad_name",
+          "description": "执行 bad_name 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "batch_rename": [
+    {
+      "name": "batch_rename",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "batch_rename",
+          "description": "执行 batch_rename 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "clean": [
+    {
+      "name": "clean",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "clean",
+          "description": "执行 clean 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "clean_state": [
+    {
+      "name": "clean_state",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "clean_state",
+          "description": "执行 clean_state 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "empty_arg": [
+    {
+      "name": "empty_arg",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "empty_arg",
+          "description": "执行 empty_arg 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "list": [
+    {
+      "name": "list",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "list",
+          "description": "执行 list 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "missing_arg": [
+    {
+      "name": "missing_arg",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "missing_arg",
+          "description": "执行 missing_arg 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "photo_sort": [
+    {
+      "name": "photo_sort",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "photo_sort",
+          "description": "执行 photo_sort 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "read": [
+    {
+      "name": "read",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "read",
+          "description": "执行 read 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "rename_test": [
+    {
+      "name": "rename_test",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "rename_test",
+          "description": "执行 rename_test 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "replace": [
+    {
+      "name": "replace",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "replace",
+          "description": "执行 replace 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "replace_v2": [
+    {
+      "name": "replace_v2",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "replace_v2",
+          "description": "执行 replace_v2 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "roundtrip": [
+    {
+      "name": "roundtrip",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "roundtrip",
+          "description": "执行 roundtrip 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "sort": [
+    {
+      "name": "sort",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "sort",
+          "description": "执行 sort 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "sync": [
+    {
+      "name": "sync",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "sync",
+          "description": "执行 sync 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "test_chain": [
+    {
+      "name": "test_chain",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "test_chain",
+          "description": "执行 test_chain 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "test_contract_error": [
+    {
+      "name": "test_contract_error",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "test_contract_error",
+          "description": "执行 test_contract_error 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "test_param_clean": [
+    {
+      "name": "test_param_clean",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "test_param_clean",
+          "description": "执行 test_param_clean 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "test_real": [
+    {
+      "name": "test_real",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "test_real",
+          "description": "执行 test_real 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ],
+  "test_var": [
+    {
+      "name": "test_var",
+      "version": "1.0.0",
+      "package_type": "atomic",
+      "quality_state": "passed",
+      "origin": "handwritten",
+      "author": "",
+      "capabilities": [
+        {
+          "name": "test_var",
+          "description": "执行 test_var 流水线",
+          "input_type": "state",
+          "output_type": "state"
+        }
+      ],
+      "submodules": []
+    }
+  ]
+}

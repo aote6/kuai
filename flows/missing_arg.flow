@@ -1,7 +1,7 @@
-任务 缺少参数测试
+任务 缺失参数测试
 
-进入 /data/data/com.termux/files/home/test_project
-选取 备份_a.txt
-替换 查找=abc
+进入 目标路径=/data/data/com.termux/files/home/test_project
+选取 文件名=备份_b.txt
+替换 查找=test 替换=replaced
 
 结束

@@ -1,10 +1,9 @@
-任务 自动归档测试
+任务 真实场景测试
 
-进入 /data/data/com.termux/files/home/test_project
-列表
+进入 目标路径=/data/data/com.termux/files/home/test_project
 筛选 扩展名=txt
-批量重命名 前缀=backup_ 扩展名=txt
+合并为对象
 压缩
-移动 目标路径=/data/data/com.termux/files/home/test_project/archive
+发送 发送目标=/data/data/com.termux/files/home/storage/downloads
 
 结束

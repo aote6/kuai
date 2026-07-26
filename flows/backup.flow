@@ -1,8 +1,9 @@
 任务 备份项目
 
-进入 /data/data/com.termux/files/home/test_project
-复制
+进入 目标路径=/data/data/com.termux/files/home/test_project
+筛选 扩展名=txt
+合并为对象
+复制 目标路径=/data/data/com.termux/files/home/storage/downloads
 压缩
-发送 /data/data/com.termux/files/home/storage/downloads
 
 结束

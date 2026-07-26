@@ -1,8 +1,9 @@
 任务 项目归档
 
-进入 /data/data/com.termux/files/home/归档测试
-复制
+进入 目标路径=/data/data/com.termux/files/home/test_project
+筛选 扩展名=txt
+合并为对象
+复制 目标路径=/data/data/com.termux/files/home/归档存档
 压缩
-移动 /data/data/com.termux/files/home/归档存档
 
 结束

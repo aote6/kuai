@@ -1,10 +1,9 @@
-任务 块链组合测试
+任务 完整流程测试
 
-进入 /data/data/com.termux/files/home/test_project
-列表
+进入 目标路径=/data/data/com.termux/files/home/test_project
 筛选 扩展名=txt
 合并为对象
 压缩
-移动 目标路径=/data/data/com.termux/files/home/archive
+解压
 
 结束
